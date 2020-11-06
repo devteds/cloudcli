@@ -12,7 +12,7 @@ HOSTNAME_ALIAS="${HOSTNAME_ALIAS:-devteds-cloudcli}"
 show_help() {
   echo "
 Usage: 
-  cloudcli exec|ssh [COMMAND]
+  cloudcli exec|ssh|version [COMMAND]
 
 Examples:
   cloudcli exec aws s3 ls
@@ -52,5 +52,7 @@ if [ "$CLOUDCLI_CMD_TYPE" = "exec" ]; then
   docker_run "$CLOUDCLI_CMD"
 elif [ "$CLOUDCLI_CMD_TYPE" = "ssh" ]; then
   docker_run
+elif [ "$CLOUDCLI_CMD_TYPE" = "version" ]; then
+  docker_run "/cloudcli-home/bin/version.sh"
 else show_help
 fi

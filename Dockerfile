@@ -99,9 +99,11 @@ RUN cd /cloudcli-home/temp && \
 COPY ./dot_bashrc.sh /root/.bashrc_ext
 RUN echo 'source /root/.bashrc_ext' >> /root/.bashrc
 
-COPY ./boot.sh /cloudcli-home/boot.sh
-RUN chmod +x /cloudcli-home/boot.sh
+COPY ./bin/boot.sh /cloudcli-home/bin/boot.sh
+COPY ./bin/version.sh /cloudcli-home/bin/version.sh
+RUN chmod +x /cloudcli-home/bin/boot.sh
+RUN chmod +x /cloudcli-home/bin/version.sh
 
 RUN cd /cloudcli-home/temp && rm -rf *
 
-CMD ["/cloudcli-home/boot.sh"]
+CMD ["/cloudcli-home/bin/boot.sh"]
