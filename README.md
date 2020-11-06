@@ -14,7 +14,7 @@ Docker image comes with the below tools,
 ## How to use?
 
 ```
-curl -o /usr/local/bin/cloudcli https://github.com/devteds/cloudcli/blob/master/cloudcli.sh
+curl -o /usr/local/bin/cloudcli https://raw.githubusercontent.com/devteds/cloudcli/master/cloudcli.sh
 chmod +x /usr/local/bin/cloudcli
 
 cd <WORKDIR>
