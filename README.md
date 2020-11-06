@@ -1,17 +1,21 @@
-# Devteds CloudCLI
+# Devteds CloudCLI 
 
-Docker image comes with the below tools,
+Package of commonly used CLI tools. Below are a few,
 
 - AWS
 - doctl (DigitalOcean CLI)
-- Terrafrom
-- KubeCtl
+- Terraform
+- kubectl
 - Helm
 - Ruby
 - Python
 - Git
+- Go
+- OpenSSH
 
 ## How to use?
+
+You could download [cloudcli.sh](https://raw.githubusercontent.com/devteds/cloudcli/master/cloudcli.sh), and run. See the instructions below.
 
 ```
 curl -o /usr/local/bin/cloudcli https://raw.githubusercontent.com/devteds/cloudcli/master/cloudcli.sh
@@ -29,3 +33,38 @@ cloudcli ssh
 > ls
 > exit
 ```
+
+**Can't use the script or using windows?**
+
+If you are using windows, you might want to create a script similar to [cloudcli.sh](https://raw.githubusercontent.com/devteds/cloudcli/master/cloudcli.sh). Below are a few examples of running this CLI using docker image instead of the wrapper script,
+
+*Launch CLI container and SSH*
+
+```
+  docker  run -it --rm \
+    -v ${PWD}/.aws:/root/.aws:ro \
+    -v ${PWD}/.helm:/root/.helm:rw \
+    -v ${PWD}/.kube:/root/.kube:rw \
+    -v ${PWD}/:/cloudcli-home/workspace/:rw \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e AWS_REGION=us-west-2 \
+     devteds/cloudcli:latest    
+```
+
+*Launch CLI container and run a specific CLI command*
+
+```
+  docker  run -it --rm \
+    -v ${PWD}/.aws:/root/.aws:ro \
+    -v ${PWD}/.helm:/root/.helm:rw \
+    -v ${PWD}/.kube:/root/.kube:rw \
+    -v ${PWD}/:/cloudcli-home/workspace/:rw \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e AWS_REGION=us-west-2 \
+     devteds/cloudcli:latest \
+    terraform version
+```
+
+## Image on Docker Hub
+
+[devteds/cloudcli](https://hub.docker.com/r/devteds/cloudcli)
