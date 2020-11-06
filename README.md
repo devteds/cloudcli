@@ -23,6 +23,10 @@ chmod +x /usr/local/bin/cloudcli
 
 cd <WORKDIR>
 
+# Copy SSH keys to workdir
+mkdir -p .ssh
+cp ~/.ssh/id_rsa* ./.ssh/
+
 # Example Commands
 cloudcli version
 
@@ -47,6 +51,7 @@ docker  run -it --rm \
   -v ${PWD}/.aws:/root/.aws:ro \
   -v ${PWD}/.helm:/root/.helm:rw \
   -v ${PWD}/.kube:/root/.kube:rw \
+  -v ${HOME}/.ssh:/root/.ssh:rw \
   -v ${PWD}/:/cloudcli-home/workspace/:rw \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e AWS_REGION=us-west-2 \
@@ -66,6 +71,7 @@ docker  run -it --rm \
   -v ${PWD}/.aws:/root/.aws:ro \
   -v ${PWD}/.helm:/root/.helm:rw \
   -v ${PWD}/.kube:/root/.kube:rw \
+  -v ${HOME}/.ssh:/root/.ssh:rw \
   -v ${PWD}/:/cloudcli-home/workspace/:rw \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e AWS_REGION=us-west-2 \
