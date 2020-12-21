@@ -26,7 +26,7 @@ Examples:
 function docker_run {
   CMD=$1
   docker  run -it --rm \
-    -v ${DOT_AWS}:/root/.aws:ro \
+    -v ${DOT_AWS}:/root/.aws:rw \
     -v ${DOT_HELM}:/root/.helm:rw \
     -v ${DOT_KUBE}:/root/.kube:rw \
     -v ${DOT_SSH}:/root/.ssh:rw \
