@@ -69,7 +69,7 @@ docker  run -it --rm \
 > exit  
 ```
 
-*Launch CLI container and run a specific CLI command*
+*Launch CLI container and run a specific CLI command (eg: aws, dotctl, kubectl etc.)*
 
 ```
 docker  run -it --rm \
