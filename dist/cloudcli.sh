@@ -7,6 +7,7 @@ DOT_AWS="${DOT_AWS:-$PWD/.aws}"
 DOT_HELM="${DOT_HELM:-$PWD/.helm}"
 DOT_KUBE="${DOT_KUBE:-$PWD/.kube}"
 DOT_SSH="${DOT_SSH:-$PWD/.ssh}"
+DOT_DOCTL="${DOT_DOCTL:-$PWD/.doctl}"
 AWS_REGION="${AWS_REGION:-us-west-2}"
 HOSTNAME_ALIAS="${HOSTNAME_ALIAS:-devteds-cloudcli}"
 
@@ -30,6 +31,7 @@ function docker_run {
     -v ${DOT_HELM}:/root/.helm:rw \
     -v ${DOT_KUBE}:/root/.kube:rw \
     -v ${DOT_SSH}:/root/.ssh:rw \
+    -v ${DOT_DOCTL}:/root/.config:rw \
     -v ${PWD}/:/cloudcli-home/workspace/:rw \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -e HOSTNAME_ALIAS=${HOSTNAME_ALIAS} \
