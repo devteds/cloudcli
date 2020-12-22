@@ -3,11 +3,11 @@ set -e
 
 CLOUDCLI_DOCKER_IMAGE=devteds/cloudcli:1.0.0
 
-DOT_AWS="${DOT_AWS:-$PWD/.aws}"
-DOT_HELM="${DOT_HELM:-$PWD/.helm}"
-DOT_KUBE="${DOT_KUBE:-$PWD/.kube}"
-DOT_SSH="${DOT_SSH:-$PWD/.ssh}"
-DOT_DOCTL="${DOT_DOCTL:-$PWD/.doctl}"
+DOT_AWS="${DOT_AWS:-$PWD/.cloudcli/aws}"
+DOT_HELM="${DOT_HELM:-$PWD/.cloudcli/helm}"
+DOT_KUBE="${DOT_KUBE:-$PWD/.cloudcli/kube}"
+DOT_SSH="${DOT_SSH:-$PWD/.cloudcli/ssh}"
+DOT_DOCTL="${DOT_DOCTL:-$PWD/.cloudcli/doctl}"
 AWS_REGION="${AWS_REGION:-us-west-2}"
 HOSTNAME_ALIAS="${HOSTNAME_ALIAS:-devteds-cloudcli}"
 

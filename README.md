@@ -23,10 +23,6 @@ chmod +x /usr/local/bin/cloudcli
 
 cd <WORKDIR>
 
-# Copy SSH keys to workdir
-mkdir -p .ssh
-cp ~/.ssh/id_rsa* ./.ssh/
-
 # Example Commands
 cloudcli version
 
@@ -38,6 +34,14 @@ cloudcli exec aws configure
 cloudcli ssh
 > ls
 > exit
+
+# Optional: Copy SSH key-pair for SSH from cloudcli
+mkdir -p .cloudcli/ssh
+cp ~/.ssh/id_rsa* ./.cloudcli/ssh/
+
+# Test SSH from cloudcli
+cloudcli ssh
+> ssh USER@HOST
 ```
 
 **Can't use the script or using windows?**
@@ -48,10 +52,11 @@ If you are using windows, you might want to create a script similar to [cloudcli
 
 ```
 docker  run -it --rm \
-  -v ${PWD}/.aws:/root/.aws:ro \
-  -v ${PWD}/.helm:/root/.helm:rw \
-  -v ${PWD}/.kube:/root/.kube:rw \
-  -v ${HOME}/.ssh:/root/.ssh:rw \
+  -v ${PWD}/.cloudcli/aws:/root/.aws:ro \
+  -v ${PWD}/.cloudcli/helm:/root/.helm:rw \
+  -v ${PWD}/.cloudcli/kube:/root/.kube:rw \
+  -v ${PWD}/.cloudcli/doctl:/root/.config:rw \
+  -v ${HOME}/.cloudcli/ssh:/root/.ssh:rw \  
   -v ${PWD}/:/cloudcli-home/workspace/:rw \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e AWS_REGION=us-west-2 \
