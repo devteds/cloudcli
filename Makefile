@@ -1,4 +1,4 @@
-CLI_VERSION = 1.0.0
+CLI_VERSION = 1.0.1
 REPOSITORY = devteds/cloudcli
 
 build:

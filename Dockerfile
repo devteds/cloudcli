@@ -96,6 +96,18 @@ RUN cd /cloudcli-home/temp && \
     tar xf doctl-${DO_VERSION}-linux-amd64.tar.gz && \
     mv ./doctl /usr/local/bin/
 
+
+# Rancher: RKE
+ENV RKE_VERSION=1.2.4
+# RUN curl -s https://api.github.com/repos/rancher/rke/releases/latest | grep download_url | grep linux-amd64 | cut -d '"' -f 4 | wget -qi -
+RUN cd /cloudcli-home/temp && \
+    echo https://github.com/rancher/rke/releases/download/v${RKE_VERSION}/rke_linux-amd64 | wget -qi -  && \
+    chmod +x rke_linux-amd64 && \
+    mv rke_linux-amd64 /usr/local/bin/rke && \
+    rke --version
+
+# ---
+
 COPY ./dot_bashrc.sh /root/.bashrc_ext
 RUN echo 'source /root/.bashrc_ext' >> /root/.bashrc
 

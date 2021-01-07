@@ -12,6 +12,7 @@ Package of commonly used CLI tools. Below are a few,
 - Git
 - Go
 - OpenSSH
+- RKE
 
 ## How to use?
 

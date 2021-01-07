@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-CLOUDCLI_DOCKER_IMAGE=devteds/cloudcli:1.0.0
+CLOUDCLI_DOCKER_IMAGE=devteds/cloudcli:1.0.1
 
 DOT_AWS="${DOT_AWS:-$PWD/.cloudcli/aws}"
 DOT_HELM="${DOT_HELM:-$PWD/.cloudcli/helm}"
