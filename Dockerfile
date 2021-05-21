@@ -41,18 +41,19 @@ RUN apt-get install -y python3.7 && \
 
 # Terraform ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ENV TERRAFORM_VERSION=0.13.5
-ENV TERRAFORM_SHA256SUM=f7b7a7b1bfbf5d78151cfe3d1d463140b5fd6a354e71a7de2b5644e652ca5147
+ENV TERRAFORM_VERSION=0.15.4
+ENV TERRAFORM_SHA256SUM=ddf9b409599b8c3b44d4e7c080da9a106befc1ff9e53b57364622720114e325c
 
-RUN cd /cloudcli-home/temp && \    
+RUN cd /cloudcli-home/temp && \
     curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
-    sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS && \    
+    sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin && \
     rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 # AWC CLI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-RUN apt-get install -y awscli
+RUN apt-get update --fix-missing && \
+    apt-get install -y awscli
 
 # Docker Client ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # TODO: Ensure only docker client is installed or enabled
@@ -64,7 +65,7 @@ RUN cd /cloudcli-home/temp && \
 
 # Go: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   https://golang.org/doc/install#code
-
+# ENV DOCKERVERSION=19.03.13
 RUN cd /cloudcli-home/temp && \
     wget https://golang.org/dl/go1.15.3.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz && \
@@ -106,6 +107,11 @@ RUN cd /cloudcli-home/temp && \
     mv rke_linux-amd64 /usr/local/bin/rke && \
     rke --version
 
+# Misc tools
+
+RUN apt-get install -y vim && \
+    apt-get install -y direnv
+
 # ---
 
 COPY ./dot_bashrc.sh /root/.bashrc_ext
@@ -117,5 +123,8 @@ RUN chmod +x /cloudcli-home/bin/boot.sh
 RUN chmod +x /cloudcli-home/bin/version.sh
 
 RUN cd /cloudcli-home/temp && rm -rf *
+
+ENV WORKDIR=/cloudcli-home/workspace
+# RUN direnv allow /cloudcli-home/workspace/
 
 CMD ["/cloudcli-home/bin/boot.sh"]

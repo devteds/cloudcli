@@ -11,7 +11,7 @@ DOT_DOCTL="${DOT_DOCTL:-$PWD/.cloudcli/doctl}"
 AWS_REGION="${AWS_REGION:-us-west-2}"
 HOSTNAME_ALIAS="${HOSTNAME_ALIAS:-devteds-cloudcli}"
 PORT_FORWARDS=""
-
+REMOTE_USER="${REMOTE_USER:-$USER}"
 
 show_help() {
   echo "
@@ -34,6 +34,7 @@ Usage:
 
 Options:
   -p <host-port:port>     Port forward from host-to-container
+  -u <remote-user>        Remote/ssh user
   -h                      Help
 
 Examples:
@@ -55,6 +56,7 @@ function docker_run {
     -v /var/run/docker.sock:/var/run/docker.sock \
     -e HOSTNAME_ALIAS=${HOSTNAME_ALIAS} \
     -e AWS_REGION=${AWS_REGION} \
+    -e REMOTE_USER=${REMOTE_USER} \    
     $PORT_FORWARDS \
     $CLOUDCLI_DOCKER_IMAGE \
     $CMD
@@ -71,6 +73,10 @@ function parse_ssh_opts {
               shift
               PORT_FORWARDS="$PORT_FORWARDS -p $1 "
           ;;
+          -u | --remote-user )
+              shift
+              REMOTE_USER=$1
+          ;;          
         -h | --help )    show_ssh_usage
             exit
         ;;          

@@ -80,3 +80,5 @@ NewLine="\n"
 Jobs="\j"
 
 PS1="$Red${HOSTNAME_ALIAS}$White:oc$Red> $Green\W$Color_Off \$ "
+
+eval "$(direnv hook bash)"
