@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-CLOUDCLI_DOCKER_IMAGE=devteds/cloudcli:1.0.2
+CLOUDCLI_DOCKER_IMAGE=devteds/cloudcli:1.0.3
 
 DOT_AWS="${DOT_AWS:-$PWD/.cloudcli/aws}"
 DOT_HELM="${DOT_HELM:-$PWD/.cloudcli/helm}"
@@ -46,7 +46,7 @@ Examples:
 
 function docker_run {
   CMD=$1
-  docker  run -it --rm \
+   docker  run -it --rm \
     -v ${DOT_AWS}:/root/.aws:rw \
     -v ${DOT_HELM}:/root/.helm:rw \
     -v ${DOT_KUBE}:/root/.kube:rw \
@@ -56,10 +56,7 @@ function docker_run {
     -v /var/run/docker.sock:/var/run/docker.sock \
     -e HOSTNAME_ALIAS=${HOSTNAME_ALIAS} \
     -e AWS_REGION=${AWS_REGION} \
-    -e REMOTE_USER=${REMOTE_USER} \    
-    $PORT_FORWARDS \
-    $CLOUDCLI_DOCKER_IMAGE \
-    $CMD
+    -e REMOTE_USER=${REMOTE_USER} $PORT_FORWARDS $CLOUDCLI_DOCKER_IMAGE $CMD
 }
 
 function cli_exec {
